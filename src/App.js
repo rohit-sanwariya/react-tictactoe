@@ -1,6 +1,7 @@
 
 import './App.css';
 import Board from './components/Board';
+
 import './styles/Root.scss'
 
 function App() {
