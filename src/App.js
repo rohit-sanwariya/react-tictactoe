@@ -3,6 +3,7 @@ import "./App.css";
 import Board from "./components/Board";
 import { calculateWinner } from "./components/Helpers";
 import History from "./components/History";
+import StatusMessage from "./components/StatusMessage";
 
 import "./styles/Root.scss";
 
@@ -16,9 +17,7 @@ function App() {
 
   const winner = calculateWinner(current.board);
 
-  const message = winner
-    ? `Winner is ${winner}`
-    : `Next Player is ${current.isNext ? "X" : "0"}`;
+
 
   const handlerSquareClick = (position) => {
     if (current.board[position] || winner) {
@@ -47,7 +46,7 @@ const moveTo = (move) =>{
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
-      <h2>{message}</h2>
+      <StatusMessage winner={winner} current={current}/>
      
       <Board board={current.board} handlerSquareClick={handlerSquareClick} />
       <History history={history} 
