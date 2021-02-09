@@ -1,40 +1,48 @@
+import { useState } from "react";
+import "./App.css";
+import Board from "./components/Board";
+import { calculateWinner } from "./components/Helpers";
 
-import { useState } from 'react';
-import './App.css';
-import Board from './components/Board';
-import { calculateWinner } from './components/Helpers';
-
-import './styles/Root.scss'
+import "./styles/Root.scss";
 
 function App() {
-  const [board,setBoard]= useState(Array(9).fill(null));
-    const [isNext,setisNext]= useState(false);
+  const [history, setHistory] = useState([
+    { board: Array(9).fill(null), isNext: true },
+  ]);
+  const [currentmove, setCurrentmove] = useState(0);
 
-    const winner = calculateWinner(board);
-    const message = winner ? `Winner is ${winner}` :`Next Player is ${isNext?'X':'0'}`
+  const current = history[currentmove];
 
-    const handlerSquareClick = (position) =>{
-      if(board[position]||winner){
-          return
-      }
-setBoard((prev)=>{
-  
-    return prev.map((square,pos)=>{
-        if(pos === position){
-            return isNext ? 'X':'0';
-        }
-       else return square;
-    })
-})
-setisNext((prev)=>!prev)
+  const winner = calculateWinner(current.board);
+
+  const message = winner
+    ? `Winner is ${winner}`
+    : `Next Player is ${current.isNext ? "X" : "0"}`;
+
+  const handlerSquareClick = (position) => {
+    if (current.board[position] || winner) {
+      return;
     }
+    setHistory((prev) => {
+      const last = prev[prev.length - 1];
 
+      const nextBoard = last.board.map((square, pos) => {
+        if (pos === position) {
+          return last.isNext ? "X" : "0";
+        } 
+        else return square;
+      });
+      return prev.concat({ board: nextBoard, isNext: !last.isNext });
+    });
+    setCurrentmove((prev) => prev + 1);
+  };
 
   return (
     <div className="app">
-     <h1>Tic Tac Toe</h1>
-    <h2>{message}</h2>
-     <Board board={board} handlerSquareClick={handlerSquareClick}/>
+      <h1>Tic Tac Toe</h1>
+      <h2>{message}</h2>
+     
+      <Board board={current.board} handlerSquareClick={handlerSquareClick} />
     </div>
   );
 }
