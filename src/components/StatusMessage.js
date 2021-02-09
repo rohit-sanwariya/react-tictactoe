@@ -10,7 +10,7 @@ const StatusMessage = ({winner,current}) => {
         <h2>
           {winner && `Winner is ${winner}` }  
           {!winner && !noMovesLeft && `Next Player is ${current.isNext ? "X" : "0"}`}
-          {!winner && noMovesLeft && 'Draw Between 0 and X'}
+          {!winner && noMovesLeft && 'Tied 0 and X'}
         </h2>
     )
 }
