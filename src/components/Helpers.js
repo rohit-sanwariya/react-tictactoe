@@ -15,10 +15,14 @@
     
         if (square[a] && square[a] === square[b] && square[a] === square[c]) {
                  
-            return square[a];
+            return { winner:square[a],
+                winningSquares : [a,b,c]
+            };
         }
          
     }
-    return null;
+    return { winner:null,
+        winningSquares : []
+    };
 }
 
