@@ -52,11 +52,11 @@ setCurrentmove(0)
 
   return (
     <div className="app">
-      <h1>Tic Tac Toe</h1>
+      <h1>Tic <span className="text-green"> Tac </span>Toe</h1>
       <StatusMessage winner={winner} current={current}/>
      
       <Board winningSquares={winningSquares} board={current.board} handlerSquareClick={handlerSquareClick} />
-      <button type="button" onClick={onNewGame}>Start New Game</button>
+      <button type="button" className={`btn-reset ${winner ?'active':''}`} onClick={onNewGame}>Start New Game</button>
       <History history={history} 
       currentmove = {currentmove}
       moveTo={moveTo}/>
