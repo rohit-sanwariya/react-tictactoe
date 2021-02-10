@@ -10,7 +10,7 @@ const Square = ({value,onClick,isWinningSquare}) => {
 
 }}
     >
-        {value}{console.log(isWinningSquare)}
+        {value} 
         </button>)
 }
 
